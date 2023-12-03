@@ -12,16 +12,40 @@ export class ArticleItemComponent implements OnInit {
   public price: number;
   public isOnSale: boolean;
   public quantityInCart: number;
+  public isInStock: boolean;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.name = 'Test Stock Company';         
-    this.imageUrl = 'TSC';
-    this.price = 135;
+    this.name = 'Habla';         
+    this.imageUrl ='../../../assets/images/habla.jpg';
+    this.price = 35;
     this.isOnSale = true;
     this.quantityInCart= 0;
+    this.isInStock = true;
+    }
+
+    incrementQuantity() {
+      if (this.isInStock) {
+        this.quantityInCart++;
+      }
+    }
+  
+    decrementQuantity() {
+      if (this.quantityInCart > 0) {
+        this.quantityInCart--;
+      }
+    }
+  
+    isDecrementDisabled() {
+      return this.quantityInCart === 0;
+    }
+
   }
 
-}
+  
+
+  
+  
+

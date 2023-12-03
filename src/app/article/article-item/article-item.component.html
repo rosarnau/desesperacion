@@ -1,4 +1,12 @@
-<div class="stock-container">
-    <div class="name">{{name + ' (' + imageUrl + ')'}}</div>
-  <div class="price">$ {{price}}</div>
+<div class="article-container" [ngClass]="{'in-stock': isInStock}">
+  <h3>{{ name }}</h3>
+  <img [src]="imageUrl" alt="{{ name }} Image">
+  <p>Precio: {{ price }}€</p>
+  <p *ngIf="isOnSale">¡Promoción!</p>
+
+  <div>
+    <p>Cantidad en el carrito: {{ quantityInCart }}</p>
+    <button (click)="incrementQuantity()">Añadir</button>
+    <button (click)="decrementQuantity()" [disabled]="isDecrementDisabled()">Eliminar</button>
+  </div>
 </div>
