@@ -1,7 +1,7 @@
 .article-container {
     border: 1px solid black;
-    background-color: rgb(217, 220, 198);
     border-radius: 5px;
+    background-color: rgb(218, 127, 17);
     display: inline-block;
     padding: 10px;
   }
@@ -10,7 +10,22 @@
     display: inline-block;
   }
 
-.isInStock{
-  background-color: lightgreen;
+.on-sale{
+  background-color: rgb(185, 155, 212);
+ 
+
 }
+.out-of-stock{
+  background-color: bisque;
+
+}
+.unavailable-price{
+  color:grey;
+}
+
+.available-price {
+  color: white;
+}
+
+
 
