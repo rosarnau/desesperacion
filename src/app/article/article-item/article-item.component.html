@@ -4,10 +4,13 @@
 
 <p [ngClass]="priceClass">Precio: {{ price | currency }}€</p>
 
-
+<div *ngIf="isOnSale">
 <p>Cantidad en el carrito: {{ quantityInCart }}</p>
   <button (click)="incrementQuantity()">Añadir</button>
   <button (click)="decrementQuantity()" [disabled]="isDecrementDisabled()">Eliminar</button>
-
+</div>
+</div>
+</div>
+</div>
 
 
