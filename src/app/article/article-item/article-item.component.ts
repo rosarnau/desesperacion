@@ -1,72 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+
+interface Article {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+  quantityInCart: number;
+  quantityInStock: number;
+  isInStock: boolean;
+}
 
 @Component({
   selector: 'app-article-item',
   templateUrl: './article-item.component.html',
-  styleUrl: './article-item.component.css'
+  styleUrls: ['./article-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush //con la utilización de onPush para la estrategia de detección de cambios
+                                                 //se optimiza el rendimiento
 })
-export class ArticleItemComponent implements OnInit {
-  
-  public name: string;                        
-  public imageUrl: string;
-  public price: number;
-  public isOnSale: boolean;
-  public quantityInCart: number;
-  public quantityInStock:number;
-  public cart:boolean;
-  public isInStock: boolean;
-  public priceClass: string;
+export class ArticleItemComponent {
 
-  constructor() { }
+  @Input() article: Article;
+  @Output() quantityChange: EventEmitter<number> = new EventEmitter();
 
-  ngOnInit() {
 
-    this.name = 'Habla';         
-    this.imageUrl ='../../../assets/images/habla.jpg';
-    this.price = 30;
-    this.isOnSale = true;
-    this.quantityInCart= 0;
-    this.quantityInStock=4;
-    this.isInStock = this.quantityInStock>0;
-    this.priceClass='available-price';
-
-    }
-
-    toggleFavorite() {
-      this.cart = !this.cart;
-      this.updatePriceClass(); 
-    }
-
-    updatePriceClass() {
-      this.priceClass = this.isInStock ? 'available-price' : 'unavailable-price';
-    }
-
-    incrementQuantity() {
-      if (this.isInStock) {
-        this.quantityInCart++;
-        this.quantityInStock--;
-        this.isInStock = this.quantityInStock > 0;
-        this.updatePriceClass();
-      }
-    }
-  
-    decrementQuantity() {
-      if (this.quantityInCart > 0) {
-        this.quantityInCart--;
-        this.quantityInStock++;
-        this.isInStock = this.quantityInStock > 0;
-        this.updatePriceClass();
-      }
-    }
-  
-    isDecrementDisabled() {
-      return this.quantityInCart === 0;
-    }
-
+  updateAvailability() {
+    this.article.isInStock = this.article.quantityInStock > 0;
+    this.quantityChange.emit(this.article.quantityInCart);
   }
 
-  
+  incrementQuantity() {
+    if (this.article.quantityInStock > 0) {
+      this.article.quantityInCart++;
+      this.article.quantityInStock--;
+      this.updateAvailability();
+    }
+  }
 
-  
-  
+  decrementQuantity() {
+    if (this.article.quantityInCart > 0) {
+      this.article.quantityInCart--;
+      this.article.quantityInStock++;
+      this.updateAvailability();
+    }
+  }
+
+  isDecrementDisabled() {
+    return this.article.quantityInCart === 0;
+  }
+
+  get articleClass(): string {
+    return this.article.isInStock ? 'available-item' : 'unavailable-item';
+  }
+
+  get priceClass(): string {
+    return this.article.isInStock ? 'available-price' : 'unavailable-price';
+  }
+}
+
 

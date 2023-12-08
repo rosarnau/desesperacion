@@ -1,31 +1,33 @@
 .article-container {
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: rgb(218, 127, 17);
-    display: inline-block;
-    padding: 10px;
-  }
+  border: 1px solid orange;
+  border-radius: 5px;
+  background-color: rgb(246, 193, 97);
+
+  flex-direction: row;
+  padding: 10px;
+}
+
+.article-container .name h3, .article-container .name h4 {
+  display: inline-block;
   
-  .article-container .name h3, .article-container .name h4 {
-    display: inline-block;
-  }
-
-.on-sale{
-  background-color: rgb(185, 155, 212);
- 
-
 }
-.out-of-stock{
-  background-color: bisque;
 
-}
+
 .unavailable-price{
-  color:grey;
+color:grey;
 }
 
 .available-price {
-  color: white;
+color: white;
 }
 
+.available-item {
+  background-color: rgb(185, 155, 212);
 
-
+}
+.unavailable-item {
+  background-color: bisque;
+  display: inline-block;
+  margin: 10px; 
+  padding: 10px;
+}

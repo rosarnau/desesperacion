@@ -78,6 +78,7 @@
 
   .content {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     width: 100%;
     max-width: 700px;
@@ -183,9 +184,12 @@
    
       <div style="text-align:center">
         <h1>
-          Welcome to {{ title }}!
+          Tienda virtual {{ title }}!
         </h1>
-        <app-article-item></app-article-item>              
+        <div>
+          <app-article-list></app-article-list>
+        </div>
+                      
       </div>
     </div>
   
