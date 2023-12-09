@@ -19,10 +19,14 @@ interface Article {
 })
 export class ArticleItemComponent {
 
-  @Input() article: Article;
+//Propiedad de entrada que recibe un artículo como input, ejercicio 4
+
+  @Input() article: Article; 
   @Output() quantityChange: EventEmitter<number> = new EventEmitter();
 
 
+  // Método para actualizar, incrementar, decrementar la disponibilidad del artículo y emitir el evento de cambio de cantidad
+  //este método se crea para el ejercicio 3 y se mantiene
   updateAvailability() {
     this.article.isInStock = this.article.quantityInStock > 0;
     this.quantityChange.emit(this.article.quantityInCart);
@@ -44,10 +48,14 @@ export class ArticleItemComponent {
     }
   }
 
+  // Método que devuelve si el botón de decremento debería estar desactivado, ejercicio 3
+
   isDecrementDisabled() {
     return this.article.quantityInCart === 0;
   }
 
+    // Propiedad que devuelve la clase CSS para el estilo del precio basado en la disponibilidad del artículo
+    //Ejercicio 4
   get articleClass(): string {
     return this.article.isInStock ? 'available-item' : 'unavailable-item';
   }

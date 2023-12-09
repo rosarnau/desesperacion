@@ -2,8 +2,12 @@
 <div [class]="articleClass">
   <h3>{{ article.name }}</h3>
   <img src="{{ article.imageUrl }}" alt="{{ article.name }}">
+
+
+  <!-- Cclase CSS dinámicamente según la disponibilidad del precio -->
   <p [ngClass]="priceClass">Precio: {{ article.price |currency:'€' }}</p>
  
+  <!--Información sobre los artículos: stock, unidades en el carrito...-->
   <p>Unidades en el carrito: {{ article.quantityInCart }}</p>
   <p>Unidades en stock: {{ article.quantityInStock }}</p>
   <p>Disponible: {{ article.isInStock ? 'Si' : 'No' }}</p>

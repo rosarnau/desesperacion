@@ -4,6 +4,9 @@
   <ul>
     <p *ngFor="let article of articles">
       <app-article-item [article]="article" (quantityChange)="onQuantityChange({id: article.id, quantity: $event})"></app-article-item>
+      <button (click)="incrementQuantity()">Añadir</button>
+      <button (click)="decrementQuantity()" [disabled]="isDecrementDisabled()">Eliminar</button>
     </p>
   </ul>
+  
 </div>
