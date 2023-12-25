@@ -8,6 +8,7 @@ form {
   label {
     display: block;
     margin-bottom: 5px;
+    color:black;
   }
   
   /* Estilo para los campos de entrada */

@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ArticleNewTemplateComponent implements OnInit {
   articleForm: FormGroup;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(private fb: FormBuilder) {}
 
@@ -29,11 +29,11 @@ export class ArticleNewTemplateComponent implements OnInit {
     this.submitted = true;
 
     if (this.articleForm.valid) {
-      // Aquí puedes manejar la lógica para guardar la información del artículo.
-      // Puedes enviar los datos a un servicio o hacer lo que sea necesario.
-      console.log('Artículo guardado:', this.articleForm.value);
+      // Recoger los datos del formulario y mostrarlos por consola
+      const formData = this.articleForm.value;
+      console.log('Datos del artículo:', formData);
 
-      // Puedes reiniciar el formulario después de enviar los datos si es necesario.
+      // Puedes reiniciar el formulario después de mostrar los datos si es necesario.
       this.resetForm();
     } else {
       // El formulario no es válido, puedes mostrar mensajes de error o realizar acciones adecuadas.
