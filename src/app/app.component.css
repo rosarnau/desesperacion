@@ -12,4 +12,42 @@
   }
 
  
-  
+  /* Estilo para el formulario */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Estilo para las etiquetas de los campos */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color:black;
+}
+
+/* Estilo para los campos de entrada */
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+div {
+  color: black;
+  margin-bottom: 10px;
+}
+
+/* Estilo para el botón de enviar */
+button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
