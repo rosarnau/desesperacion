@@ -1,35 +1,39 @@
-<div>
-  <h4 class="error">{{ message }}</h4>
-  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
-    <div formGroupName="article">
-      <div>
-        <input type="text" formControlName="articleName" placeholder="Nombre del artículo" />
-      </div>
-      <div class="error" *ngIf="articleForm.get('article.articleName').hasError('required') && articleForm.get('article.articleName').touched">
-        Nombre del artículo es obligatorio.
-      </div>
+<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+  
+    <label for="articleName">Nombre del Artículo:</label>
+    <input type="text" id="articleName" formControlName="articleName" required>
+    <div *ngIf="articleForm.get('articleName').hasError('required') && (articleForm.get('articleName').dirty || submitted)">
+      Nombre del artículo es obligatorio.
+    </div>
 
-      <div>
-        <input type="number" formControlName="articlePrice" placeholder="Precio del artículo" />
+    <div>
+      <label for="articlePrice">Precio del Artículo:</label>
+      <input type="number" id="articlePrice" formControlName="articlePrice" required>
+      <div *ngIf="(articleForm.get('articlePrice').hasError('required') || articleForm.get('articlePrice').hasError('pattern')) && (articleForm.get('articlePrice').dirty || submitted)">
+        Precio debe ser un número válido (con hasta dos decimales).
       </div>
-      <div class="error" *ngIf="articleForm.get('article.articlePrice').hasError('required') && articleForm.get('article.articlePrice').touched">
-        Precio del artículo es obligatorio y debe ser numérico.
-      </div>
-
-      <div>
-        <input type="text" formControlName="imageUrl" placeholder="URL de la imagen" />
-      </div>
-      <div class="error" *ngIf="articleForm.get('article.imageUrl').hasError('required') && articleForm.get('article.imageUrl').touched">
-        URL de la imagen es obligatoria.
-      </div>
-      <div class="error" *ngIf="articleForm.get('article.imageUrl').hasError('pattern') && articleForm.get('article.imageUrl').touched">
-        URL de la imagen no es válida.
-      </div>
-
-      <div>
-        <input type="checkbox" formControlName="isForSale" /> ¿Está en venta?
+      <div *ngIf="articleForm.get('articlePrice').hasError('min') && (articleForm.get('articlePrice').dirty || submitted)">
+        Precio no puede ser menor que cero.
       </div>
     </div>
-    <button type="submit" [disabled]="articleForm.invalid">Guardar</button>
-  </form>
-</div>
+
+    <div>
+      <label for="imageUrl">URL de la Imagen:</label>
+      <input type="text" id="imageUrl" formControlName="imageUrl" required>
+      <div *ngIf="articleForm.get('imageUrl').hasError('required') && (articleForm.get('imageUrl').dirty || submitted)">
+        URL de la imagen es obligatoria.
+      </div>
+      <div *ngIf="articleForm.get('imageUrl').hasError('pattern') && (articleForm.get('imageUrl').dirty || submitted)">
+        URL de la imagen no es válida. Debe seguir el formato http(s)://dominio.com/imagen.jpg.
+      </div>
+    </div>
+  
+
+  <div>
+    <label for="isForSale">En Venta:</label>
+    <input type="checkbox" id="isForSale" formControlName="isForSale">
+  </div>
+
+  <button type="submit" [disabled]="!articleForm.valid">Guardar</button>
+</form>
+
