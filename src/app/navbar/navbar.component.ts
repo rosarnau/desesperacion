@@ -6,12 +6,27 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  @Output() navigateToArticleNewTemplate = new EventEmitter<string>();
+  @Output() changeContent = new EventEmitter<{content: string}>();
+  currentComponent: string = 'article-list';
+  showMenuMobile = false;
 
+  itemsNav: Array<{link: string, component: string}> = [
+    {link: 'article-list', component: 'Artículos'},
+    {link: 'article-new-template', component: 'Nuevo artículo template'},
+    {link: 'article-new-reactive', component: 'Nuevo artículo reactivo'},
+  ]
 
-  showArticleNewTemplate() {
-    this.navigateToArticleNewTemplate .emit('article-new-template');  }
+  showComponent(componentName: string) {
+    this.currentComponent = componentName;
+    this.changeContent.emit({content: this.currentComponent});
+  }
 
+  isNavItemActive(componentName: string): boolean {
+    return this.currentComponent === componentName;
+  }
+
+  toogleMenu() {
+    this.showMenuMobile = !this.showMenuMobile;
+  }
 }
-
 

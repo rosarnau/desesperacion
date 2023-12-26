@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'La quesería';
+  currentComponent: string = 'article-list';
 
-
+  onShowedComponent(event: {content: string}) {
+    this.currentComponent = event.content;
+  }
 }
+
+

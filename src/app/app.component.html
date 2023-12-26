@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -177,7 +168,8 @@
     }
   }
 </style>
-<link rel="stylesheet" href="app.component.css">
+
+
 <main class="main">
   <div class="content">
     <div class="left-side">
@@ -186,23 +178,22 @@
         <h1>
           Tienda virtual {{ title }}!
         </h1>
-        <div>
-          <app-article-new-template></app-article-new-template>
-          <app-article-list></app-article-list>
-         
-        </div>
-                      
+
+     <app-navbar (changeContent)="onShowedComponent($event)"></app-navbar>
+      <div *ngIf="currentComponent === 'article-list'">
+        <app-article-list></app-article-list>
       </div>
+
+      <div *ngIf="currentComponent === 'article-new-template'">
+        <app-article-new-template></app-article-new-template>
+      </div>
+
+      <div *ngIf="currentComponent === 'article-new-reactive'">
+        <app-article-new-reactive></app-article-new-reactive>
+      </div>
+
     </div>
-  
-           
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+    </div>
+  </div>
+</main>
 

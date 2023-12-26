@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-article-new-template',
   templateUrl: './article-new-template.component.html',
-  styleUrls: ['./article-new-template.component.css']
+  styleUrl: './article-new-template.component.css'
 })
 export class ArticleNewTemplateComponent implements OnInit {
   articleForm: FormGroup;

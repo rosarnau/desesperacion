@@ -45,10 +45,8 @@ export class ArticleNewReactiveComponent implements OnInit {
     this.submitted = true;
   
     if (this.articleForm.valid) {
-      // Recoger los datos desde el formulario
       const formData = this.articleForm.value;
   
-      // Mostrar por consola que se han recogido correctamente los datos
       console.log('Datos recogidos correctamente:');
       console.log('Nombre:', formData.nombre);
       console.log('Precio:', formData.precio);

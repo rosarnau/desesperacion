@@ -1,12 +1,22 @@
-<nav>
-  <ul>
-    <li (click)="showArticleNewTemplate()">Inicio</li>
-    <li (click)="showArticleNewTemplate()">Artículos</li>
-    <li (click)="showArticleNewTemplate()">Nuevo artículo template</li>
-    <li (click)="showArticleNewTemplate()">Nuevo artículo reactivo</li>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-brand" 
+      (click)="showComponent('article-list')"
+      [class.active]="isNavItemActive('article-list')">Inicio
+    </div>
+   
+    <div class="collapse navbar-collapse" 
+          id="navbarNavAltMarkup"
+          [class]="showMenuMobile ? 'show': ''">
+      <div class="navbar-nav">
+        <div class="nav-item">
+          <div class="nav-link" 
+            *ngFor="let item of itemsNav"
+            (click)="showComponent(item.link)"
+            [class.active]="isNavItemActive(item.link)">{{ item.component }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
-
-
-  
-  
