@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs'; 
 import { Article } from './article/article-item/article-item.component';
 
 @Injectable({
@@ -18,26 +19,24 @@ export class ArticleService {
     ];
    }
 
-   getArticles() : Article []{
-    return this.articles;
+   getArticles() : Observable<Article []>{
+    return of(this.articles);
    }
 
-   createArticles(article: Article){
+   createArticles(article: Article):Observable<any>{
     this.articles.push(article);
-    return true;
+    return of (true);
    }
 
-   changeQuantity(articleID: number, changeInQuantity: number): Promise<Article> {
-    return new Promise((resolve, reject) => {
-      const article = this.articles.find((a) => a.id === articleID);
+   changeQuantity(articleID: number, changeInQuantity: number): Observable<Article> {
+    const article = this.articles.find(a => a.id === articleID);
 
-      if (article) {
-        article.quantityInStock += changeInQuantity;
-        resolve(article);
-      } else {
-        reject('Article not found');
-      }
-    });
+    if (article) {
+      article.quantityInStock += changeInQuantity;
+      return of(article);
+    } else {
+      return throwError(() => new Error('Article not found'));
+    }
   }
 }
 

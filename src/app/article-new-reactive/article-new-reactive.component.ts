@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Article } from '../article/article-item/article-item.component';
 import { ArticleService } from '../article.service';
+import { MessageService } from '../services/message.service';
 
 // Definir la función del validador personalizado aquí
 function NameArticleValidator(control: AbstractControl): ValidationErrors | null {
@@ -18,14 +19,15 @@ function NameArticleValidator(control: AbstractControl): ValidationErrors | null
 @Component({
   selector: 'app-article-new-reactive',
   templateUrl: './article-new-reactive.component.html',
-  styleUrls: ['./article-new-reactive.component.css']
+  styleUrls: ['./article-new-reactive.component.css'],
+  providers:[MessageService]
 })
 export class ArticleNewReactiveComponent implements OnInit {
   articleForm: FormGroup;
   submitted = false;
   public message = "";
 
-  constructor(private fb: FormBuilder, private articleService: ArticleService) { }
+  constructor(private fb: FormBuilder, private articleService: ArticleService, public messageService: MessageService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -49,15 +51,20 @@ export class ArticleNewReactiveComponent implements OnInit {
       this.message = "Please correct all errors and resubmit the form";
     } else {
       const articleData: Article = this.articleForm.value;
-
-      const created = this.articleService.createArticles(articleData);
-
-      if (created) {
-        this.message = 'Successfully created article with name: ' + articleData.name;
-        this.articleForm.reset();
-      } else {
-        this.message = 'Article with name: ' + articleData.name + ' already exists';
-      }
-    }
+  
+      // Suscribirse al observable
+      this.articleService.createArticles(articleData).subscribe(
+        () => {
+          // Callback para el caso de éxito
+          this.messageService.message = 'Successfully created article with name: ' + articleData.name;
+          this.articleForm.reset();
+        },
+        (error) => {
+          // Callback para el manejador de errores
+          this.messageService.message = 'Error creating article: ' + error;
+        }
+      );
   }
 }
+}
+

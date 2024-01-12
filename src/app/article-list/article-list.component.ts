@@ -21,8 +21,11 @@ public articles: Article[];
 constructor(private articleService: ArticleService){}
 
 ngOnInit(){
-  this.articles = this.articleService.getArticles();
-}
+  this.articleService.getArticles()
+  .subscribe(articles=>{
+    this.articles=articles
+    });
+  }
 
 // Método que se ejecuta cuando cambia la cantidad de un artículo
 

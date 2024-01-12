@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ArticleService } from './article.service';
+import { MessageService} from './services/message.service';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ArticleService } from './article.service';
     HttpClientModule
   ],
   providers: [
-    ArticleService
+    ArticleService,
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

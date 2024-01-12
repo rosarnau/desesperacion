@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,13 @@ export class AppComponent {
   title = 'La quesería';
   currentComponent: string = 'article-list';
 
+  constructor(public messageService:MessageService){}
+
   onShowedComponent(event: {content: string}) {
     this.currentComponent = event.content;
   }
-  ngOnInit(){
+  ngOnInit():void{
+    this.messageService.message='¡Artículo creado!'
     
   }
 }

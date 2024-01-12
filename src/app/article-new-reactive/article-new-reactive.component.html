@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="../app.component.css">
-<h3>
-  Introduzca artículo
- </h3>
-<form [formGroup]="articleForm" (ngSubmit)="createArticle()">
+<h2>Formulario Crear Artículo</h2>
+
+<div>{{messageService.message}}</div>
+<div class="grupo-formulario">
+  <form [formGroup]="articleForm" (ngSubmit)="createArticle()">
     <div>
       <label for="nombre">Nombre:</label>
       <input type="text" 
@@ -11,7 +12,7 @@
             formControlName="nombre">
       <div *ngIf="submitted && formControls.nombre.errors?.required">El nombre es obligatorio.</div>
     </div>
-  
+
     <div>
       <label for="precio">Precio:</label>
       <input type="text" 
@@ -23,7 +24,7 @@
         El precio es obligatorio y debe ser un número mayor o igual a 0,1€.
       </div>
     </div>
-  
+
     <div>
       <label for="imagenUrl">URL de la imagen:</label>
       <input type="text" 
@@ -32,14 +33,14 @@
             formControlName="imagenUrl">
       <div *ngIf="submitted && formControls.imagenUrl.errors?.required">La URL de la imagen es obligatoria.</div>
     </div>
-  
+
     <div>
       <label for="enVenta">¿Está en venta?</label>
       <input type="checkbox" 
           id="enVenta" 
           formControlName="enVenta">
     </div>
-  
+
     <button type="submit" [disabled]="articleForm.invalid">Crear artículo</button>
   </form>
-  
+</div>
