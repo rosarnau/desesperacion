@@ -51,3 +51,8 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+h3{
+  text-align: center;
+}
+

@@ -1,32 +1,28 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  @Output() changeContent = new EventEmitter<{content: string}>();
-  currentComponent: string = 'article-list';
-  showMenuMobile = false;
-
-  itemsNav: Array<{link: string, component: string}> = [
-    {link: 'article-list', component: 'Artículos'},
-    {link: 'article-new-template', component: 'Nuevo artículo template'},
-    {link: 'article-new-reactive', component: 'Nuevo artículo reactivo'},
-  ]
-
-  showComponent(componentName: string) {
-    this.currentComponent = componentName;
-    this.changeContent.emit({content: this.currentComponent});
+  opcioArticleList:boolean =true;
+  opcioFormTemplate:boolean=false;
+  opcioFormReactive:boolean=false;
+  
+  mostraArticleList(){
+    this.opcioArticleList=true;
+    this.opcioFormTemplate=false;
+    this.opcioFormReactive=false;
   }
-
-  isNavItemActive(componentName: string): boolean {
-    return this.currentComponent === componentName;
+  mostraFormTemplate(){
+    this.opcioArticleList=false;
+    this.opcioFormTemplate=true;
+    this.opcioFormReactive=false;
   }
-
-  toogleMenu() {
-    this.showMenuMobile = !this.showMenuMobile;
+  mostraFormReactive(){
+    this.opcioArticleList=false;
+    this.opcioFormTemplate=false;
+    this.opcioFormReactive=true;
   }
 }
-

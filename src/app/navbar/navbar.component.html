@@ -1,22 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <div class="navbar-brand" 
-      (click)="showComponent('article-list')"
-      [class.active]="isNavItemActive('article-list')">Inicio
-    </div>
-   
-    <div class="collapse navbar-collapse" 
-          id="navbarNavAltMarkup"
-          [class]="showMenuMobile ? 'show': ''">
-      <div class="navbar-nav">
-        <div class="nav-item">
-          <div class="nav-link" 
-            *ngFor="let item of itemsNav"
-            (click)="showComponent(item.link)"
-            [class.active]="isNavItemActive(item.link)">{{ item.component }}
-          </div>
-        </div>
+    <div style="text-align:center">
+      <h1>
+        Tienda virtual "La Quesería"
+      </h1>
       </div>
-    </div>
+      <a class="navbar-brand" (click)="mostraArticleList()">Inicio</a>
+      <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+              <a class="nav-link active" (click)="mostraArticleList()">Articulos</a>
+              <a class="nav-link" (click)="mostraFormTemplate()">Nuevo articulo template</a>
+              <a class="nav-link" (click)="mostraFormReactive()">Nuevo articulo reactive</a>
+          </div>
+      </div>
   </div>
 </nav>
+<BR>
+<div>
+  <app-article-list *ngIf="opcioArticleList"></app-article-list>
+  <app-article-new-template *ngIf="opcioFormTemplate"></app-article-new-template>
+  <app-article-new-reactive *ngIf="opcioFormReactive"></app-article-new-reactive>
+</div>

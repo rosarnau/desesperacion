@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Article } from '../article/article-item/article-item.component';
 
 // Definir la función del validador personalizado aquí
 function NameArticleValidator(control: AbstractControl): ValidationErrors | null {
@@ -21,6 +22,7 @@ function NameArticleValidator(control: AbstractControl): ValidationErrors | null
 export class ArticleNewReactiveComponent implements OnInit {
   articleForm: FormGroup;
   submitted = false;
+  public message = "";
 
   constructor(private fb: FormBuilder) { }
 
@@ -41,20 +43,12 @@ export class ArticleNewReactiveComponent implements OnInit {
     return this.articleForm.controls;
   }
 
-  onSubmit() {
-    this.submitted = true;
-  
-    if (this.articleForm.valid) {
-      const formData = this.articleForm.value;
-  
-      console.log('Datos recogidos correctamente:');
-      console.log('Nombre:', formData.nombre);
-      console.log('Precio:', formData.precio);
-      console.log('URL de la imagen:', formData.imagenUrl);
-      console.log('¿Está en venta?', formData.enVenta);
+  createArticle() {
+     if (this.articleForm.invalid) {
+      this.message = "Please correct all errors and resubmit the form";
     } else {
-      console.log("Formulario no válido. Por favor, complete todos los campos obligatorios y asegúrese de que el precio sea mayor o igual a 0,1€.");
+      const wine: Article = this.articleForm.value;
+      console.log("Creating cheese");
     }
-  
-}
+  }
 }

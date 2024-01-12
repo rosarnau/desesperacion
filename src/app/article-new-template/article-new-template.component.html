@@ -1,43 +1,74 @@
 <link rel="stylesheet" href="../app.component.css">
 
-<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
-  
-    <label for="articleName">Nombre del Artículo:</label>
-    <input type="text" id="articleName" formControlName="articleName" required>
-    <div *ngIf="articleForm.get('articleName').hasError('required') && (articleForm.get('articleName').dirty || submitted)">
-      Nombre del artículo es obligatorio.
-    </div>
+<h3>
+ Introduzca artículo
+</h3>
 
-    <div>
-      <label for="articlePrice">Precio del Artículo:</label>
-
-      <input type="number" id="articlePrice" formControlName="articlePrice" required>
-
-      <div *ngIf="(articleForm.get('articlePrice').hasError('required') || articleForm.get('articlePrice').hasError('pattern')) && (articleForm.get('articlePrice').dirty || submitted)">
-        El precio debe ser un número válido (superior a cero).
-     
+<div>
+  <h4 class="error">{{ message }}</h4>
+  <form (ngSubmit)="createArticle(articleForm)" #articleForm="ngForm">
+    <div ngModelGroup="article">
+      <div>
+        <input
+          type="text"
+          ngModel
+          #articleName="ngModel"
+          name="name"
+          placeholder="Nombre Artículo"
+          required
+        />
       </div>
-    
-    </div>
+      <div
+        class="error"
+        *ngIf="(articleName.dirty || message) && articleName.invalid"
+      >
 
-    <div>
-      <label for="imageUrl">URL de la Imagen:</label>
-      <input type="text" id="imageUrl" formControlName="imageUrl" required>
-      <div *ngIf="articleForm.get('imageUrl').hasError('required') && (articleForm.get('imageUrl').dirty || submitted)">
-        URL de la imagen es obligatoria.
+      Necesario el nombre del artículo
       </div>
-
-      <div *ngIf="articleForm.get('imageUrl').hasError('pattern') && (articleForm.get('imageUrl').dirty || submitted)">
-        URL de la imagen no es válida. Debe seguir el formato http(s)://dominio.com/imagen.jpg.
+      <div>
+        <input
+          type="number"
+          ngModel
+          name="price"
+          placeholder="Precio Artículo"
+          #articlePrice="ngModel"
+          required
+        />
+      </div>
+      <div
+        class="error"
+        *ngIf="(articlePrice.dirty || message) && articlePrice.invalid"
+      >
+      
+       Precio del artículo requerido
+      </div>
+      <div>
+        <input
+          type="text"
+          ngModel
+          name="imageUrl"
+          placeholder="Imagen URL Artículo"
+          #articleImageUrl="ngModel"
+          pattern="^http(s?)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$"
+          required
+        />
+      </div>
+      <div
+        class="error"
+        *ngIf="(articleImageUrl.dirty || message) && articleImageUrl.invalid"
+      >
+        <div *ngIf="articleImageUrl.errors?.['required']">
+          Imagen URL del Artículo Requerida
+        </div>
+        <div *ngIf="articleImageUrl.errors?.['pattern']">
+         La imagen URL del artículo no es válida
+        </div>
+      </div>
+      <div>
+        En Venta
+        <input type="checkbox" ngModel name="isOnSale" />
       </div>
     </div>
-  
-
-  <div>
-    <label for="isForSale">En Venta:</label>
-    <input type="checkbox" id="isForSale" formControlName="isForSale">
-  </div>
-
-  <button type="submit" [disabled]="!articleForm.valid">Crear</button>
-</form>
-
+    <button type="submit">Crear</button>
+  </form>
+</div>

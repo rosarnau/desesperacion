@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-interface Article {
+export interface Article {
   id: number;
   name: string;
   imageUrl: string;

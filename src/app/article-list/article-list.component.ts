@@ -16,19 +16,18 @@ interface Article {
   styleUrls: ['./article-list.component.css']
 })
 export class ArticleListComponent implements OnInit {
+public articles: Article[];
+constructor(){}
 
-
+ngOnInit(){
 // Array que contiene la lista de artículos, ejercicio 4 
-  articles: Article[] = [
+  this.articles = [
     { id: 1, name: 'Queso "Flor de Romero"', imageUrl:'../../../assets/images/flor_romero.jpg', price: 7, quantityInCart: 0, quantityInStock: 8, isInStock: true },
     { id: 2, name: 'Queso "Dehesa de los Llanos"', imageUrl: '../../../assets/images/dehesa_llanos.jpg', price: 13, quantityInCart: 0, quantityInStock: 5, isInStock: true },
     { id: 3, name: 'Queso "Portezuelo"', imageUrl: '../../../assets/images/portezuelo.jpg', price: 10, quantityInCart: 0, quantityInStock: 0, isInStock: false }
   ];
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+}
 
 // Método que se ejecuta cuando cambia la cantidad de un artículo
 

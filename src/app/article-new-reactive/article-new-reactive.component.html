@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="../app.component.css">
-
-<form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+<h3>
+  Introduzca artículo
+ </h3>
+<form [formGroup]="articleForm" (ngSubmit)="createArticle()">
     <div>
       <label for="nombre">Nombre:</label>
       <input type="text" 

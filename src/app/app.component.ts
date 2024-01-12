@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,9 @@ export class AppComponent {
 
   onShowedComponent(event: {content: string}) {
     this.currentComponent = event.content;
+  }
+  ngOnInit(){
+    
   }
 }
 

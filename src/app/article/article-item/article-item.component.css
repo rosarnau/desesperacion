@@ -2,14 +2,9 @@
   border: 1px solid orange;
   border-radius: 5px;
   background-color: rgb(246, 193, 97);
-
-  flex-direction: row;
-  padding: 10px;
-}
-
-.article-container .name h3, .article-container .name h4 {
-  display: inline-block;
-  
+  flex-direction:column;
+  padding:30px;
+  text-align: center;
 }
 
 
@@ -31,3 +26,76 @@ color: white;
   margin: 10px; 
   padding: 10px;
 }
+.article-item {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: inline-block;
+
+}
+.stock-container {
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  flex-direction: row;
+  padding: 10px;
+  background-color: yellow;
+}
+
+.stock-container .name h3, .stock-container .name h4 {
+  display: inline-block;
+}
+
+
+/* Estilo para el formulario */
+form {
+max-width: 400px;
+margin: 0 auto;
+}
+
+/* Estilo para las etiquetas de los campos */
+label {
+display: block;
+margin-bottom: 5px;
+color:black;
+}
+
+/* Estilo para los campos de entrada */
+input {
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+box-sizing: border-box;
+}
+
+div {
+color: black;
+margin-bottom: 10px;
+}
+
+/* Estilo para el botón de enviar */
+button {
+padding: 10px;
+background-color: #4caf50;
+color: #fff;
+border: none;
+cursor: pointer;
+}
+
+button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+
+h3{
+text-align: center;
+color: rgb(230, 34, 115);
+}
+h2 {
+color: rgb(185, 155, 212);
+text-align: center;
+
+}
+
+ 
+
