@@ -15,8 +15,12 @@
   
   <ul>
     <li *ngFor="let article of articles$ | async">
-      <app-article-item [article]="article" (quantityChange)="onQuantityChange({id: article.id, quantity: $event})"></app-article-item>
-    </li>
+      <app-article-item 
+      [article]="article" 
+      (quantityChange)="onQuantityChange({id: article.id, quantity: $event})"></app-article-item>
+    
+      <img [src]="article.imageUrl | defaultImage" alt="{{ article.title }}" />
+      <p>{{ article.price | price }}</p></li>
   </ul>
 </div>
 
