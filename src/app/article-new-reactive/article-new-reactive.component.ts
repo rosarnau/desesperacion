@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Article } from '../article/article-item/article-item.component';
+import { ArticleService } from '../article.service';
 
 // Definir la función del validador personalizado aquí
 function NameArticleValidator(control: AbstractControl): ValidationErrors | null {
@@ -24,7 +25,7 @@ export class ArticleNewReactiveComponent implements OnInit {
   submitted = false;
   public message = "";
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private articleService: ArticleService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -44,11 +45,19 @@ export class ArticleNewReactiveComponent implements OnInit {
   }
 
   createArticle() {
-     if (this.articleForm.invalid) {
+    if (this.articleForm.invalid) {
       this.message = "Please correct all errors and resubmit the form";
     } else {
-      const wine: Article = this.articleForm.value;
-      console.log("Creating cheese");
+      const articleData: Article = this.articleForm.value;
+
+      const created = this.articleService.createArticles(articleData);
+
+      if (created) {
+        this.message = 'Successfully created article with name: ' + articleData.name;
+        this.articleForm.reset();
+      } else {
+        this.message = 'Article with name: ' + articleData.name + ' already exists';
+      }
     }
   }
 }

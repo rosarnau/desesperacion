@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../article.service';
 
 interface Article {
   id: number;
@@ -17,16 +18,10 @@ interface Article {
 })
 export class ArticleListComponent implements OnInit {
 public articles: Article[];
-constructor(){}
+constructor(private articleService: ArticleService){}
 
 ngOnInit(){
-// Array que contiene la lista de artículos, ejercicio 4 
-  this.articles = [
-    { id: 1, name: 'Queso "Flor de Romero"', imageUrl:'../../../assets/images/flor_romero.jpg', price: 7, quantityInCart: 0, quantityInStock: 8, isInStock: true },
-    { id: 2, name: 'Queso "Dehesa de los Llanos"', imageUrl: '../../../assets/images/dehesa_llanos.jpg', price: 13, quantityInCart: 0, quantityInStock: 5, isInStock: true },
-    { id: 3, name: 'Queso "Portezuelo"', imageUrl: '../../../assets/images/portezuelo.jpg', price: 10, quantityInCart: 0, quantityInStock: 0, isInStock: false }
-  ];
-
+  this.articles = this.articleService.getArticles();
 }
 
 // Método que se ejecuta cuando cambia la cantidad de un artículo

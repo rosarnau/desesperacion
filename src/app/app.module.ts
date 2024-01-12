@@ -10,6 +10,8 @@ import { ArticleNewTemplateComponent } from './article-new-template/article-new-
 import { ArticleNewReactiveComponent } from './article-new-reactive/article-new-reactive.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ArticleService } from './article.service';
 
 
 @NgModule({
@@ -26,9 +28,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ArticleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
