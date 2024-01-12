@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs'; 
 import { Article } from './article/article-item/article-item.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,16 +10,50 @@ import { catchError, map } from 'rxjs/operators';
 
 export class ArticleService {
 
-
+  private apiUrl = 'http://localhost:3000/api/articles'
   constructor(private http: HttpClient) {}
 
   
    getArticles() : Observable<Article []>{
-    return this.http.get<Article []>('/api/article');
+    return this.http.get<Article []>(this.apiUrl, {
+      headers: new HttpHeaders()                       
+          .set('Authorization', 'MyAuthorizationHeaderValue')
+          .set('X-EXAMPLE-HEADER', 'TestValue'),
+      params: {                                        
+        q: 'test',
+        test: 'value'
+      },
+      observe: 'body'                 
+    });
    }
 
+   getArticlesAsResponse(): Observable<HttpResponse<Article[]>> {
+    return this.http.get<Article[]>(this.apiUrl, {
+      observe: 'response' 
+    });
+  }
+
+  getArticlesAsEvents(): Observable<HttpEvent<any>> {
+    return this.http.get('api/article', {
+      observe: 'events'                  
+    });
+  }
+
+  getArticlesAsString(): Observable<string> {
+    return this.http.get(this.apiUrl, {
+      responseType: 'text'  
+    }); 
+  } 
+    
+  getArticlesAsBlob(): Observable<Blob> {
+      return this.http.get(this.apiUrl, {
+        responseType: 'blob'                  
+      });
+    }
+
+
    createArticles(article: Article):Observable<any>{
-    return this.http.post('/api/stock', article);
+    return this.http.post(this.apiUrl, article);
    }
 
    changeQuantity(articleID: number, changeInQuantity: number): Observable<Article> {

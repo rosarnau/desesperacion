@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticleService } from '../article.service';
+import { Article } from '../article/article-item/article-item.component';
 
-interface Article {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  quantityInCart: number;
-  quantityInStock: number;
-  isInStock: boolean;
-}
 
 @Component({
   selector: 'app-article-list',
@@ -24,7 +16,25 @@ export class ArticleListComponent implements OnInit {
 
   ngOnInit() {
     this.articles$ = this.articleService.getArticles();
-  }
+    this.articleService.getArticlesAsResponse()
+    .subscribe((response) => {
+      console.log('OBSERVE "response" RESPONSE is ', response);
+    });
+    this.articleService.getArticlesAsEvents()
+    .subscribe((response) => {
+      console.log('OBSERVE "events" RESPONSE is ', response);
+    });
+
+this.articleService.getArticlesAsString()
+    .subscribe((response) => {
+      console.log('Response Type "text" RESPONSE is ', response);
+    });
+
+this.articleService.getArticlesAsBlob()
+    .subscribe((response) => {
+      console.log('Response Type "blob" RESPONSE is ', response);
+    });
+}
 
   onQuantityChange(change: { id: number, quantity: number }) {
    
