@@ -36,6 +36,8 @@ this.articleService.getArticlesAsBlob()
     });
 }
 
+  
+
   onQuantityChange(change: { id: number, quantity: number }) {
    
   }

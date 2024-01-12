@@ -2,10 +2,22 @@
 <div>
   <h2>Listado de Artículos</h2>
   <h3>Precio de cuña de queso de 250gr aprox.</h3>
+  <div>
+    <input name="searchBox"
+          [(ngModel)]="searchString"
+          placeholder="Search Here"
+          (keyup)="search()">
+  </div>
+  <h2>
+    We have found {{(articles$ | async)?.length}} articles!
+  </h2>
+  
+  
   <ul>
     <li *ngFor="let article of articles$ | async">
       <app-article-item [article]="article" (quantityChange)="onQuantityChange({id: article.id, quantity: $event})"></app-article-item>
     </li>
   </ul>
 </div>
+
 

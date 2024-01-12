@@ -14,18 +14,9 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   
-   getArticles() : Observable<Article []>{
-    return this.http.get<Article []>(this.apiUrl, {
-      headers: new HttpHeaders()                       
-          .set('Authorization', 'MyAuthorizationHeaderValue')
-          .set('X-EXAMPLE-HEADER', 'TestValue'),
-      params: {                                        
-        q: 'test',
-        test: 'value'
-      },
-      observe: 'body'                 
-    });
-   }
+   getArticles(query:string) : Observable<Article []>{
+    return this.http.get<Article []>('/api/article?q=${query}');
+   } 
 
    getArticlesAsResponse(): Observable<HttpResponse<Article[]>> {
     return this.http.get<Article[]>(this.apiUrl, {
@@ -70,11 +61,6 @@ export class ArticleService {
         return throwError(() => new Error('Error al cambiar la cantidad del artículo'));
       })
     );
-   }
-    makeFailingCall() {
-      return this.http.get('/api/fail');
-    }
-  
   }
-
+}
 
