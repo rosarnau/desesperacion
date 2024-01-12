@@ -3,44 +3,81 @@
 
 <div>{{ messageService.message$ | async }}</div>
 <div class="grupo-formulario">
-  <form [formGroup]="articleForm" (ngSubmit)="createArticle()">
-    <div>
-      <label for="nombre">Nombre:</label>
-      <input type="text" 
-            class="form-control"
-            id="nombre" 
-            formControlName="nombre">
-      <div *ngIf="submitted && formControls.nombre.errors?.required">El nombre es obligatorio.</div>
-    </div>
-
-    <div>
-      <label for="precio">Precio:</label>
-      <input type="text" 
-            class="form-control"
-            id="precio" 
-            formControlName="precio">
-
-      <div *ngIf="submitted && (formControls.precio.errors?.required || formControls.precio.errors?.pattern || formControls.precio.errors?.min)">
-        El precio es obligatorio y debe ser un número mayor o igual a 0,1€.
+    <form [formGroup]="articleForm" (ngSubmit)="createArticle()" >
+      <div>
+        <div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Article Name"
+            formControlName="name"
+            required
+          />
+        </div>
+        <div
+          class="error"
+          *ngIf="
+            (articleForm.get('name').dirty || message) &&
+            articleForm.get('name').invalid
+          "
+        >
+          <div *ngIf="articleForm.get('name').errors?.['required']">
+            El nombre del artículo es necesario
+          </div>
+          <div *ngIf="articleForm.get('name').errors?.['articleNameValid']">
+            Nombre del artículo inválido
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
+            name="price"
+            placeholder="Article Price"
+            formControlName="price"
+          />
+        </div>
+        <div
+          class="error"
+          *ngIf="
+            (articleForm.get('price').dirty || message) &&
+            articleForm.get('price').invalid
+          "
+        >
+          <div *ngIf="articleForm.get('price').errors?.['required']">
+            El precio del artículo es necesario
+          </div>
+          <div *ngIf="articleForm.get('price').errors?.['min']">
+           El precio del artículo debe ser al menos 1
+          </div>
+        </div>
+        <div>
+          <input
+            type="text"
+            name="imageUrl"
+            placeholder="article Image URL"
+            formControlName="imageUrl"
+          />
+        </div>
+        <div
+          class="error"
+          *ngIf="
+            (articleForm.get('imageUrl').dirty || message) &&
+            articleForm.get('imageUrl').invalid
+          "
+        >
+          <div *ngIf="articleForm.get('imageUrl').errors?.['required']">
+            La imagen URL del artículo es obligatoria
+          </div>
+          <div *ngIf="articleForm.get('imageUrl').errors?.['pattern']">
+            La imagen del artículo no es una dirección URL válida
+          </div>
+        </div>
+        <div>
+          <h3>En venta</h3>
+          <input type="checkbox" formControlName="isOnSale" name="isOnSale" />
+          
+        </div>
       </div>
-    </div>
-
-    <div>
-      <label for="imagenUrl">URL de la imagen:</label>
-      <input type="text" 
-            class="form-control"
-            id="imagenUrl" 
-            formControlName="imagenUrl">
-      <div *ngIf="submitted && formControls.imagenUrl.errors?.required">La URL de la imagen es obligatoria.</div>
-    </div>
-
-    <div>
-      <label for="enVenta">¿Está en venta?</label>
-      <input type="checkbox" 
-          id="enVenta" 
-          formControlName="enVenta">
-    </div>
-
-    <button type="submit" [disabled]="articleForm.invalid">Crear artículo</button>
-  </form>
-</div>
+      <button type="submit">Crear</button>
+    </form>
+  </div>

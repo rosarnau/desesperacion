@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs'; 
 import { Article } from './article/article-item/article-item.component';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,35 +10,32 @@ import { Article } from './article/article-item/article-item.component';
 
 export class ArticleService {
 
-  private articles: Article[];
 
-  constructor() {
+  constructor(private http: HttpClient) {}
 
-    this.articles=[
-      {id:1, name:'Queso "Flor de Romero"', imageUrl: '../../../assets/images/flor_romero.jpg', price: 7, quantityInCart: 0, quantityInStock: 8, isInStock: true},
-      {id:2, name:'Queso "Dehesa de los Llanos"', imageUrl: '../../../assets/images/dehesa_llanos.jpg', price: 13, quantityInCart: 0, quantityInStock: 5, isInStock: true},
-      {id:3, name:'Queso "Portezuelo"', imageUrl: '../../../assets/images/portezuelo.jpg', price: 10, quantityInCart: 0, quantityInStock: 0, isInStock: false}
-    ];
-   }
-
+  
    getArticles() : Observable<Article []>{
-    return of(this.articles);
+    return this.http.get<Article []>('/api/article');
    }
 
    createArticles(article: Article):Observable<any>{
-    this.articles.push(article);
-    return of (true);
+    return this.http.post('/api/stock', article);
    }
 
    changeQuantity(articleID: number, changeInQuantity: number): Observable<Article> {
-    const article = this.articles.find(a => a.id === articleID);
+    const url = `${this.apiUrl}/${articleID}`;
+    const patchData = { changeInQuantity }; // Datos para la solicitud PATCH
 
-    if (article) {
-      article.quantityInStock += changeInQuantity;
-      return of(article);
-    } else {
-      return throwError(() => new Error('Article not found'));
-    }
+    return this.http.patch<Article>(url, patchData).pipe(
+      map((article: Article) => {
+        // La solicitud fue exitosa, devuelve el artículo actualizado
+        return article;
+      }),
+      catchError((error) => {
+        console.error('Error al cambiar la cantidad del artículo:', error);
+        return throwError(() => new Error('Error al cambiar la cantidad del artículo'));
+      })
+    );
   }
 }
 
