@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../app.component.css">
 <h2>Formulario Crear Artículo</h2>
 
-<div>{{messageService.message}}</div>
+<div>{{ messageService.message$ | async }}</div>
 <div class="grupo-formulario">
   <form [formGroup]="articleForm" (ngSubmit)="createArticle()">
     <div>

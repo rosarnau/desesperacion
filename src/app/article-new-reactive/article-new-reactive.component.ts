@@ -45,26 +45,22 @@ export class ArticleNewReactiveComponent implements OnInit {
   get formControls() {
     return this.articleForm.controls;
   }
-
   createArticle() {
     if (this.articleForm.invalid) {
-      this.message = "Please correct all errors and resubmit the form";
+      this.messageService.setMessage("Please correct all errors and resubmit the form");
     } else {
       const articleData: Article = this.articleForm.value;
-  
-      // Suscribirse al observable
+
       this.articleService.createArticles(articleData).subscribe(
         () => {
-          // Callback para el caso de éxito
-          this.messageService.message = 'Successfully created article with name: ' + articleData.name;
+          this.messageService.setMessage('Successfully created article with name: ' + articleData.name);
           this.articleForm.reset();
         },
         (error) => {
-          // Callback para el manejador de errores
-          this.messageService.message = 'Error creating article: ' + error;
+          this.messageService.setMessage('Error creating article: ' + error);
         }
       );
+    }
   }
-}
 }
 

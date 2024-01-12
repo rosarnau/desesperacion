@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from './services/message.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
     this.currentComponent = event.content;
   }
   ngOnInit():void{
-    this.messageService.message='¡Artículo creado!'
+    this.messageService.message$=of('¡Artículo creado!');
     
   }
 }
