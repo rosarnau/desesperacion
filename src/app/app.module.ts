@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ArticleService } from './article.service';
 import { MessageService} from './services/message.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MessageService} from './services/message.service';
   providers: [
     ArticleService,
     MessageService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -70,6 +70,11 @@ export class ArticleService {
         return throwError(() => new Error('Error al cambiar la cantidad del artículo'));
       })
     );
+   }
+    makeFailingCall() {
+      return this.http.get('/api/fail');
+    }
+  
   }
-}
+
 
