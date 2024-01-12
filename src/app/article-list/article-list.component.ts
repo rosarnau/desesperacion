@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { ArticleService } from '../article.service';
 import { Article } from '../article/article-item/article-item.component';
-
+import { share } from 'rxjs';
 
 @Component({
   selector: 'app-article-list',
@@ -11,53 +11,25 @@ import { Article } from '../article/article-item/article-item.component';
 })
 export class ArticleListComponent implements OnInit {
   public articles$: Observable<Article[]>;
+  public searchString: string = '';
+  private searchTerms: Subject<string> = new Subject();
 
   constructor(private articleService: ArticleService) {}
 
   ngOnInit() {
-    this.articles$ = this.articleService.getArticles();
-    this.articleService.getArticlesAsResponse()
-    .subscribe((response) => {
-      console.log('OBSERVE "response" RESPONSE is ', response);
-    });
-    this.articleService.getArticlesAsEvents()
-    .subscribe((response) => {
-      console.log('OBSERVE "events" RESPONSE is ', response);
-    });
+    this.articles$ = this.searchTerms.pipe(
+      startWith(this.searchString),
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((query) => this.articleService.getArticles(query)),
+      share()
+    );
+  }
 
-this.articleService.getArticlesAsString()
-    .subscribe((response) => {
-      console.log('Response Type "text" RESPONSE is ', response);
-    });
+  search() {
+    this.searchTerms.next(this.searchString);
+  }
 
-this.articleService.getArticlesAsBlob()
-    .subscribe((response) => {
-      console.log('Response Type "blob" RESPONSE is ', response);
-    });
-}
-
+  }
   
-
-  onQuantityChange(change: { id: number, quantity: number }) {
-   
-  }
-
-  incrementQuantity(article: Article) {
-    if (article.quantityInStock > 0) {
-      article.quantityInCart++;
-      article.quantityInStock--;
-      this.onQuantityChange({ id: article.id, quantity: article.quantityInCart });
-    }
-  }
-
-  decrementQuantity(article: Article) {
-    if (article.quantityInCart > 0) {
-      article.quantityInCart--;
-      article.quantityInStock++;
-      this.onQuantityChange({ id: article.id, quantity: article.quantityInCart });
-    }
-  }
-}
-
-
   
