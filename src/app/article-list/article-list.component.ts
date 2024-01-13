@@ -21,7 +21,7 @@ export class ArticleListComponent implements OnInit {
       startWith(this.searchString),
       debounceTime(500),
       distinctUntilChanged(),
-      switchMap((query) => this.articleService.getArticles(query)),
+      switchMap((query) => this.articleService.getArticles()),
       share()
     );
   }
